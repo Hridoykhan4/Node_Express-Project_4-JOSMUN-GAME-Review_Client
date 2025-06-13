@@ -14,6 +14,7 @@ const Banner = () => {
     <div className="">
       <div className="w-full">
         <Swiper
+          loop={true}
           spaceBetween={30}
           centeredSlides={true}
           autoplay={{
@@ -31,7 +32,7 @@ const Banner = () => {
             <div
               className="hero w-full h-[400px] bg-cover bg-center"
               style={{
-                backgroundImage: `url(${banner1})`,
+                backgroundImage: `url(${banner1}), linear-gradient(rgba(0,0,0,0.9))`,
               }}
             >
               <div className="bg-opacity-40 hero-overlay"></div>

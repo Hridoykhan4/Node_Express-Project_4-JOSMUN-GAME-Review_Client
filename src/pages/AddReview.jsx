@@ -1,6 +1,31 @@
 import bgImage from "../assets/collected/ban.jpg";
-
+import { useForm } from "react-hook-form";
 const AddReview = () => {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    const { desc, genre, photo, title, rating, year } = data;
+    const reviewData = {
+      desc,
+      genre,
+      photo,
+      title,
+      rating,
+      year,
+    };
+
+    fetch("http://localhost:5000/reviews", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(reviewData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
   return (
     <div
       style={{
@@ -19,13 +44,17 @@ const AddReview = () => {
           Let us know what you think!
         </p>
 
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
           {/* Game Title */}
           <div>
             <label className="block font-medium text-gray-800 dark:text-gray-200 mb-1">
               Game Title
             </label>
             <input
+              {...register("title", { required: true })}
               type="text"
               placeholder="Enter your Game Title"
               className="w-full px-4 py-2 rounded-lg bg-[#0f172a] text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500"
@@ -40,6 +69,7 @@ const AddReview = () => {
             </label>
             <input
               type="url"
+              {...register("photo", { required: true })}
               placeholder="Enter photo URL"
               className="w-full px-4 py-2 rounded-lg bg-[#0f172a] text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500"
               required
@@ -53,9 +83,11 @@ const AddReview = () => {
             </label>
             <input
               type="number"
+              {...register("rating", { required: true })}
               placeholder="Enter rating"
-              min="1"
-              max="5"
+              min="1.0"
+               step="0.1"
+              max="5.0"
               className="w-full px-4 py-2 rounded-lg bg-[#0f172a] text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
@@ -67,9 +99,10 @@ const AddReview = () => {
               Publish Year
             </label>
             <input
+              {...register("year", { required: true })}
               type="number"
               min={2000}
-              max={3000}
+              max={2100}
               placeholder="Enter publishing year"
               className="w-full px-4 py-2 rounded-lg bg-[#0f172a] text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500"
               required
@@ -82,18 +115,18 @@ const AddReview = () => {
               Select a Genre
             </label>
             <select
+              {...register("genre", { required: true })}
               className="w-full px-4 py-2 rounded-lg bg-[#0f172a] text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             >
-              <option disabled selected>
-                Choose a genre
-              </option>
+              <option disabled>Choose a genre</option>
               <option>Action</option>
               <option>Adventure</option>
               <option>RPG</option>
               <option>Sports</option>
               <option>Horror</option>
               <option>Simulation</option>
+              <option>Survival</option>
             </select>
           </div>
 
@@ -103,6 +136,7 @@ const AddReview = () => {
               Review Description
             </label>
             <textarea
+              {...register("desc", { required: true })}
               rows="4"
               placeholder="Write your game review here..."
               className="w-full px-4 py-2 rounded-lg bg-[#0f172a] text-white border border-green-500 focus:outline-none focus:ring-2 focus:ring-red-500"

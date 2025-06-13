@@ -1,52 +1,42 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import gameLogo from "../assets/logos/francisco-suarez-2K_b1cVyIbU-unsplash (1).jpg";
 import { CircleUserRound, Menu } from "lucide-react";
 const Navbar = () => {
-  const themeIcon = (
-    <>
-      <label className="flex cursor-pointer gap-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="5" />
-          <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
-        </svg>
-        <input
-          type="checkbox"
-          value="synthwave"
-          className="toggle theme-controller"
-        />
-      </label>
-    </>
-  );
+  const navLinkStyle = ({ isActive }) =>
+    `relative px-4 py-2 font-semibold  transition duration-200
+   ${
+     isActive
+       ? "text-green-400 font-bold  border-b-2 border-green-400"
+       : "text-gray-200 hover:text-green-400"
+   }`;
 
   const links = (
     <>
       <li>
-        <NavLink>Home</NavLink>
+        <NavLink to="/" className={navLinkStyle}>
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/allReview">All Reviews</NavLink>
+        <NavLink to="/allReview" className={navLinkStyle}>
+          All Reviews
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/addReview">Add Review</NavLink>
+        <NavLink to="/addReview" className={navLinkStyle}>
+          Add Review
+        </NavLink>
       </li>
       <li>
-        <NavLink>My Reviews</NavLink>
+        <NavLink to="/myReviews" className={navLinkStyle}>
+          My Reviews
+        </NavLink>
       </li>
     </>
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar shadow-sm">
       <div className="navbar-start md:w-1/2 w-full">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -75,9 +65,8 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <div className="flex items-center gap-2">
-          {themeIcon}
           <CircleUserRound />
-          <button className="btn">Login</button>
+          <Link to="/login" className="btn">Login</Link>
         </div>
       </div>
     </div>
