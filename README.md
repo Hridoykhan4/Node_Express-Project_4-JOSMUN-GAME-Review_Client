@@ -2,7 +2,7 @@
 
 A dynamic, full-stack gaming web application where users can explore, review, and manage games in a modern and interactive UI.
 
-🌐 **Live Site:** [https://josmin-games.web.app](https://josmin-games.web.app)
+🌐 **Live Site:** [https://josmin-games.web.app/](https://josmin-games.web.app/)
 
 ---
 
