@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 const AllReviewCard = ({ review }) => {
-  const { _id,  genre, photo, title, rating, year } = review;
+  const { _id, genre, photo, title, rating, year } = review;
 
   return (
     <motion.div
@@ -35,7 +35,10 @@ const AllReviewCard = ({ review }) => {
 
       {/* Sale Section (Optional) */}
       <div className="bg-gray-800 px-4 py-3 text-white flex items-center justify-between">
-        <Link to={`/details/${_id}`} className="bg-green-600 px-2 py-1 rounded text-sm font-bold">
+        <Link
+          to={`/details/${_id}`}
+          className="bg-green-600 px-2 py-1 rounded text-sm font-bold"
+        >
           Details
         </Link>
         <span className="text-green-400 font-bold">$4.54 USD</span>

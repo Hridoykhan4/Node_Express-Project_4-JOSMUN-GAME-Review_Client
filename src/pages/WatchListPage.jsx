@@ -9,7 +9,7 @@ const WatchListPage = () => {
   const nav = useNavigate();
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/watchLists/${user.email}`)
+      fetch(`https://josmun-games-server.vercel.app/watchLists/${user.email}`)
         .then((res) => res.json())
         .then((lists) => setWatchListItems(lists));
     }
@@ -17,7 +17,7 @@ const WatchListPage = () => {
 
   //   View Handler
   const handleViewReview = (title) => {
-    fetch(`http://localhost:5000/wishList/${title}`)
+    fetch(`https://josmun-games-server.vercel.app/wishList/${title}`)
       .then((res) => res.json())
       .then((data) => {
         nav(`/details/${data?._id}`);
@@ -45,7 +45,7 @@ const WatchListPage = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/watchLists/${id}`, {
+        fetch(`https://josmun-games-server.vercel.app/watchLists/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

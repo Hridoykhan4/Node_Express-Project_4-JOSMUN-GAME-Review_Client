@@ -99,7 +99,7 @@ const Navbar = () => {
                 alt="Game Logo"
                 className="w-10 h-10 rounded-full object-cover"
               />
-              <span className="text-xl font-bold text-white">JosMin Games</span>
+              <span className="text-xl font-bold text-white">JosMun Games</span>
             </Link>
           </div>
 

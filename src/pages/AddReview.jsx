@@ -18,7 +18,7 @@ const AddReview = () => {
       userName: user?.displayName,
     };
 
-    fetch("http://localhost:5000/reviews", {
+    fetch("https://josmun-games-server.vercel.app/reviews", {
       method: "POST",
       headers: {
         "content-type": "application/json",

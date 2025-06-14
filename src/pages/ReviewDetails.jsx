@@ -33,7 +33,7 @@ const ReviewDetails = () => {
     };
 
     fetch(
-      `http://localhost:5000/watchLists/check?userEmail=${user.email}&title=${watchReview.title}`
+      `https://josmun-games-server.vercel.app/watchLists/check?userEmail=${user.email}&title=${watchReview.title}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -48,7 +48,7 @@ const ReviewDetails = () => {
           });
         } else {
           // ✅ Add it
-          fetch("http://localhost:5000/watchLists", {
+          fetch("https://josmun-games-server.vercel.app/watchLists", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

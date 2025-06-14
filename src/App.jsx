@@ -49,7 +49,7 @@ function App() {
         }}
       >
         <main className="relative z-10  text-white">
-          {navigation.state === <Loading />  ? " " : <Outlet />}
+          {navigation.state === "loading" ? <Loading></Loading> : <Outlet />}
         </main>
 
         <footer className="relative z-10">

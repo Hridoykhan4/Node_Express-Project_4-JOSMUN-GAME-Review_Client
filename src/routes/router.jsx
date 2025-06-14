@@ -10,6 +10,7 @@ import ErrorPage from "../components/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import WatchListPage from "../pages/WatchListPage";
 import MyReviews from "../pages/MyReviews";
+import UpdateReview from "../pages/UpdateReview";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,13 +21,16 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch(`http://localhost:5000/reviews`),
+        loader: () =>
+          fetch(
+            `https://josmun-games-server.vercel.app/reviews`
+          ),
       },
       {
         path: "/addReview",
         element: (
           <PrivateRoute>
-            <AddReview></AddReview>,
+            <AddReview></AddReview>
           </PrivateRoute>
         ),
       },
@@ -34,7 +38,10 @@ const router = createBrowserRouter([
         path: "/allReview",
         element: <AllReviews></AllReviews>,
 
-        loader: () => fetch(`http://localhost:5000/reviews`),
+        loader: () =>
+          fetch(
+            `https://josmun-games-server.vercel.app/reviews`
+          ),
       },
       {
         path: "/myReviews",
@@ -48,19 +55,29 @@ const router = createBrowserRouter([
         path: "/details/:id",
         element: (
           <PrivateRoute>
-            <ReviewDetails></ReviewDetails>,
+            <ReviewDetails></ReviewDetails>
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/reviews/${params.id}`),
+          fetch(
+            `https://josmun-games-server.vercel.app/reviews/${params.id}`
+          ),
       },
       {
         path: "/login",
         element: <LoginPage></LoginPage>,
       },
       {
-        path: '/updateReview/:id',
-        element: <p>Update</p>
+        path: "/updateReview/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateReview></UpdateReview>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://josmun-games-server.vercel.app/reviews/${params.id}`
+          ),
       },
       {
         path: "/register",

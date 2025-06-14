@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuthValue from "../Hooks/useAuthValue";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyReviews = () => {
   const [myReviews, setMyReviews] = useState([]);
@@ -8,11 +9,56 @@ const MyReviews = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/myReviews/${user.email}`)
+      fetch(`https://josmun-games-server.vercel.app/myReviews/${user.email}`)
         .then((res) => res.json())
         .then((reviews) => setMyReviews(reviews));
     }
   }, [user]);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "🔥 Delete This Like Pro",
+      text: "Once gone, it’ll be burned to ashes. No looking back!",
+      icon: "warning",
+      background: "#1a1a1a",
+      color: "#fff",
+      showCancelButton: true,
+      confirmButtonColor: "#e11d48",
+      cancelButtonColor: "#4b5563",
+      confirmButtonText: "🔥 Burn It!",
+      cancelButtonText: "🚫 Cancel",
+      customClass: {
+        popup: "rounded-lg border border-red-800",
+        confirmButton: "pushpa-btn-confirm",
+        cancelButton: "pushpa-btn-cancel",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`https://josmun-games-server.vercel.app/reviews/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              const remaining = myReviews.filter(
+                (myReview) => myReview._id !== id
+              );
+              setMyReviews(remaining);
+
+              Swal.fire({
+                title: "💥 Gone Like Fire!",
+                text: "Your item has been blasted out of existence.",
+                icon: "success",
+                background: "#0f0f0f",
+                color: "#fff",
+                confirmButtonColor: "#22c55e",
+                confirmButtonText: "🔥 Done",
+              });
+            }
+          });
+      }
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-[#0f0f0f] to-[#1a1a1a] text-white p-6 font-sans">
@@ -69,7 +115,10 @@ const MyReviews = () => {
                   >
                     Edit/Update
                   </Link>
-                  <button className="text-sm px-3 py-1 bg-red-600 hover:bg-red-700 rounded shadow">
+                  <button
+                    onClick={() => handleDelete(review?._id)}
+                    className="text-sm px-3 py-1 bg-red-600 hover:bg-red-700 rounded shadow"
+                  >
                     Delete
                   </button>
                 </div>
