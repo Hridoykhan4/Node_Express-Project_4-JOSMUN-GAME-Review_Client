@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigation } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -7,10 +7,12 @@ import bodyBg1 from "../src/assets/collected/gamming.webp";
 import bodyBg2 from "../src/assets/collected/wild.webp";
 import bodyBg3 from "../src/assets/collected/shoot.jpg";
 import { useEffect, useState } from "react";
+import Loading from "./components/Loading";
 
 function App() {
   const { pathname } = useLocation();
   const photos = [bodyBg1, bodyBg2, bodyBg3];
+  const navigation = useNavigation();
 
   const [choosePhoto, setChoosePhoto] = useState(bodyBg1);
 
@@ -47,7 +49,7 @@ function App() {
         }}
       >
         <main className="relative z-10  text-white">
-          <Outlet />
+          {navigation.state === <Loading />  ? " " : <Outlet />}
         </main>
 
         <footer className="relative z-10">

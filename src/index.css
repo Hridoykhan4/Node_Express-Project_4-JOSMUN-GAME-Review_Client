@@ -1,6 +1,18 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-html{
-    scroll-behavior: smooth;
+html {
+  scroll-behavior: smooth;
+}
+
+.pushpa-btn-confirm {
+  background-color: #dc2626 !important;
+  border-radius: 8px !important;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+}
+
+.pushpa-btn-cancel {
+  background-color: #374151 !important;
+  border-radius: 8px !important;
 }

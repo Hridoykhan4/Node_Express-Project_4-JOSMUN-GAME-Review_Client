@@ -4,6 +4,7 @@ import Lottie from "lottie-react";
 import gameLottie from "../assets/game.json";
 import { Link, useLoaderData } from "react-router-dom";
 import AllReviewCard from "../components/AllReviewCard";
+import TrendingGames from "../components/TrendingGames";
 
 const Home = () => {
   const reviews = useLoaderData();
@@ -23,7 +24,7 @@ const Home = () => {
       <div className="grid w-11/12 mx-auto pb-4 grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 overflow-hidden">
         {[...reviews]
           ?.filter((_, i) => i !== 5 && i !== 3)
-          .slice(0, 7)
+          .slice(0, 5)
           ?.map((review) => (
             <AllReviewCard key={review?._id} review={review}></AllReviewCard>
           ))}
@@ -45,6 +46,8 @@ const Home = () => {
           </span>
         </Link>
       </div>
+
+      <TrendingGames></TrendingGames>
     </div>
   );
 };

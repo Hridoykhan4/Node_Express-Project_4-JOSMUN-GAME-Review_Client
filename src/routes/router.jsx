@@ -6,10 +6,16 @@ import AllReviews from "../pages/AllReviews";
 import ReviewDetails from "../pages/ReviewDetails";
 import LoginPage from "../pages/LoginPage";
 import Register from "../pages/Register";
+import ErrorPage from "../components/ErrorPage";
+import PrivateRoute from "./PrivateRoute";
+import WatchListPage from "../pages/WatchListPage";
+import MyReviews from "../pages/MyReviews";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App></App>,
+    errorElement: <ErrorPage></ErrorPage>,
+
     children: [
       {
         path: "/",
@@ -18,22 +24,43 @@ const router = createBrowserRouter([
       },
       {
         path: "/addReview",
-        element: <AddReview></AddReview>,
+        element: (
+          <PrivateRoute>
+            <AddReview></AddReview>,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/allReview",
         element: <AllReviews></AllReviews>,
+
         loader: () => fetch(`http://localhost:5000/reviews`),
       },
       {
+        path: "/myReviews",
+        element: <MyReviews></MyReviews>,
+      },
+      {
+        path: "/watchLists",
+        element: <WatchListPage></WatchListPage>,
+      },
+      {
         path: "/details/:id",
-        element: <ReviewDetails></ReviewDetails>,
+        element: (
+          <PrivateRoute>
+            <ReviewDetails></ReviewDetails>,
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/reviews/${params.id}`),
       },
       {
         path: "/login",
         element: <LoginPage></LoginPage>,
+      },
+      {
+        path: '/updateReview/:id',
+        element: <p>Update</p>
       },
       {
         path: "/register",

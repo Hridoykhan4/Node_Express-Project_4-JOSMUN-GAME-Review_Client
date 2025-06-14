@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   getAuth,
-  GithubAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -53,8 +52,6 @@ const AuthProvider = ({ children }) => {
   const logInGoogle = () => {
     return signInWithPopup(auth, googleProvider);
   };
-
-  
 
   const authInfo = {
     user,

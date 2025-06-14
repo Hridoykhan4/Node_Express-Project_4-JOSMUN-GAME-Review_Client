@@ -1,7 +1,10 @@
 import bgImage from "../assets/collected/ban.jpg";
 import { useForm } from "react-hook-form";
+import useAuthValue from "../Hooks/useAuthValue";
+import Swal from "sweetalert2";
 const AddReview = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+  const { user } = useAuthValue();
   const onSubmit = (data) => {
     const { desc, genre, photo, title, rating, year } = data;
     const reviewData = {
@@ -11,6 +14,8 @@ const AddReview = () => {
       title,
       rating,
       year,
+      email: user?.email,
+      userName: user?.displayName,
     };
 
     fetch("http://localhost:5000/reviews", {
@@ -22,7 +27,18 @@ const AddReview = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.insertedId) {
+          reset();
+          Swal.fire({
+            title: "🔥 Success !",
+            text: `Added Review by ${user?.displayName}`,
+            icon: "success",
+            background: "#1e1e2f",
+            color: "#fff",
+            confirmButtonColor: "#ff4c29",
+            confirmButtonText: "Ok 🎮",
+          });
+        }
       });
   };
 
@@ -86,7 +102,7 @@ const AddReview = () => {
               {...register("rating", { required: true })}
               placeholder="Enter rating"
               min="1.0"
-               step="0.1"
+              step="0.1"
               max="5.0"
               className="w-full px-4 py-2 rounded-lg bg-[#0f172a] text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500"
               required
