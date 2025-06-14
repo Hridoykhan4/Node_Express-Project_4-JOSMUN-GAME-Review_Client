@@ -26,6 +26,7 @@ const router = createBrowserRouter([
             `https://josmun-games-server.vercel.app/reviews`
           );
           const data = await res.json();
+          console.log(data)
           if (data) {
             return data;
           }
