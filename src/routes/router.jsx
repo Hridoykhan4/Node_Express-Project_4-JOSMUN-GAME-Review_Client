@@ -21,10 +21,15 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () =>
-          fetch(
+        loader: async () => {
+          const res = await fetch(
             `https://josmun-games-server.vercel.app/reviews`
-          ),
+          );
+          const data = await res.json();
+          if (data) {
+            return data;
+          }
+        },
       },
       {
         path: "/addReview",
@@ -38,10 +43,7 @@ const router = createBrowserRouter([
         path: "/allReview",
         element: <AllReviews></AllReviews>,
 
-        loader: () =>
-          fetch(
-            `https://josmun-games-server.vercel.app/reviews`
-          ),
+        loader: () => fetch(`https://josmun-games-server.vercel.app/reviews`),
       },
       {
         path: "/myReviews",
@@ -59,9 +61,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://josmun-games-server.vercel.app/reviews/${params.id}`
-          ),
+          fetch(`https://josmun-games-server.vercel.app/reviews/${params.id}`),
       },
       {
         path: "/login",
@@ -75,9 +75,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://josmun-games-server.vercel.app/reviews/${params.id}`
-          ),
+          fetch(`https://josmun-games-server.vercel.app/reviews/${params.id}`),
       },
       {
         path: "/register",
